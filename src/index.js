@@ -1,30 +1,61 @@
 import Phaser from 'phaser';
-import logoImg from './assets/logo.png';
+import sharkImg from './assets/shark-300px.png';
+// import shipImg from './assets/pirate-ship-cartoon-800.png';
+import shipImg from './assets/pirate-ship-black-sail-800.png';
+import rowboatImg from './assets/rowboat-100.png';
 
-class MyGame extends Phaser.Scene
-{
-    constructor ()
-    {
+const BOAT_SPEED = 160;
+let cursors;
+let player;
+
+class MyGame extends Phaser.Scene {
+    constructor() {
         super();
     }
 
-    preload ()
-    {
-        this.load.image('logo', logoImg);
+    preload() {
+        this.load.image('logo', sharkImg);
+        this.load.image('ship', shipImg);
+        this.load.image('rowboat', rowboatImg);
     }
-      
-    create ()
-    {
+
+    create() {
+        this.add.image(400, 300, 'ship');
         const logo = this.add.image(400, 150, 'logo');
-      
+
         this.tweens.add({
             targets: logo,
-            y: 450,
-            duration: 2000,
-            ease: "Power2",
+            y: 350,
+            duration: 1500,
+            ease: 'Sine.inOut',
             yoyo: true,
-            loop: -1
+            repeat: -1
         });
+
+        player = this.physics.add.sprite(400, 540, 'rowboat');
+        cursors = this.input.keyboard.createCursorKeys();
+
+
+    }
+
+    update() {
+        if (cursors.left.isDown) {
+            player.setVelocityX(-BOAT_SPEED);
+        }
+        else if (cursors.right.isDown) {
+            player.setVelocityX(BOAT_SPEED);
+        }
+        else if (cursors.up.isDown) {
+            player.setVelocityY(-BOAT_SPEED);
+        } 
+        else if (cursors.down.isDown) {
+            player.setVelocityY(BOAT_SPEED);
+        } 
+        else {
+            player.setVelocityX(0);
+            player.setVelocityY(0);
+        }
+
     }
 }
 
@@ -33,7 +64,13 @@ const config = {
     parent: 'phaser-example',
     width: 800,
     height: 600,
-    scene: MyGame
+    scene: MyGame,
+    physics: {
+        default: 'arcade',
+        arcade: {
+            gravity: { x: 0, y: 0 },
+        },
+    }
 };
 
 const game = new Phaser.Game(config);

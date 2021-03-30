@@ -31,7 +31,11 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       CANVAS_RENDERER: JSON.stringify(true),
-      WEBGL_RENDERER: JSON.stringify(true)
+      WEBGL_RENDERER: JSON.stringify(true),
+      EXPERIMENTAL: JSON.stringify(true),
+      PLUGIN_CAMERA3D: JSON.stringify(false),
+      PLUGIN_FBINSTANT: JSON.stringify(false),
+      FEATURE_SOUND: JSON.stringify(true)
     }),
     new HtmlWebpackPlugin({
       template: "./index.html"
