@@ -1,3 +1,5 @@
+Whimsical diagram (WIP): https://whimsical.com/shark-game-Hyn7tWFJQNLAH5GrBUvUMr
+
 # References
 
 - Making your first Phaser 3 game: https://phaser.io/tutorials/making-your-first-phaser-3-game/part1
