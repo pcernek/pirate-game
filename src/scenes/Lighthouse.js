@@ -21,6 +21,9 @@ export class Lighthouse extends Phaser.Scene {
         this.createClickHandler(730, 700, 350, 300, () => {
           this.scene.switch('sharks')
         })
+        this.createClickHandler(1200, 700, 350, 300, () => {
+          this.scene.switch('amulet')
+        })
     }
 
     createClickHandler(x, y, width, height, onClick) {
