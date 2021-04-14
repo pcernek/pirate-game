@@ -3,7 +3,7 @@ import lighthouse from '../assets/lighthouse-sketch.png'
 import { Canvas } from '../Canvas';
 
 let CLICK_HANDLER_FILL_COLOR = 0x00ff00
-let CLICK_HANDLER_ALPHA = 0.5
+let CLICK_HANDLER_ALPHA = ENV === 'dev' ? 0.5 : 0
 
 export class Lighthouse extends Phaser.Scene {
     constructor() {
