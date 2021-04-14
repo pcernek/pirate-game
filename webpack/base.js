@@ -35,8 +35,7 @@ module.exports = {
       EXPERIMENTAL: JSON.stringify(true),
       PLUGIN_CAMERA3D: JSON.stringify(false),
       PLUGIN_FBINSTANT: JSON.stringify(false),
-      FEATURE_SOUND: JSON.stringify(true),
-      ENV: JSON.stringify('dev')
+      FEATURE_SOUND: JSON.stringify(true)
     }),
     new HtmlWebpackPlugin({
       template: "./index.html"
