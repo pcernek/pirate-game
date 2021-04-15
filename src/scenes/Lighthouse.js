@@ -1,6 +1,8 @@
 import Phaser from 'phaser';
 import lighthouse from '../assets/lighthouse-sketch.png'
-import orangeBoat from '../assets/orange-boat.png'
+import orangeBoat from '../assets/orange-boat-200px.png'
+import jollyRogerBoat from '../assets/jolly-roger-boat-200px.png'
+import whiteBoat from '../assets/white-boat-200px.png'
 import { Canvas } from '../Canvas';
 import { BoatOnShelf } from './BoatOnShelf';
 
@@ -17,12 +19,16 @@ export class Lighthouse extends Phaser.Scene {
     preload() {
         this.load.image('lighthouse', lighthouse);
         this.load.image('orangeBoat', orangeBoat)
+        this.load.image('jollyRogerBoat', jollyRogerBoat)
+        this.load.image('whiteBoat', whiteBoat)
     }
 
     create() {
         this.add.image(Canvas.widthPx/2, Canvas.heightPx/2, 'lighthouse');
         const stoneBasinDropZone = this.add.zone(730, 630, 290, 270, 0xff0000, 0.5).setDropZone()
         new BoatOnShelf(620, 120, 'orangeBoat').addToScene(this, stoneBasinDropZone)
+        new BoatOnShelf(770, 120, 'jollyRogerBoat').addToScene(this, stoneBasinDropZone)
+        new BoatOnShelf(930, 130, 'whiteBoat').addToScene(this, stoneBasinDropZone)
 
         this.createClickBox(380, 440, 300, 200, () => {
           this.scene.switch('battleMap')
