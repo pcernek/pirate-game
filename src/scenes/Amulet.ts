@@ -1,5 +1,4 @@
-import Phaser from 'phaser';
-import amulet from '../assets/amulet.png'
+import * as Phaser from 'phaser';
 import { Canvas } from '../Canvas';
 
 export class Amulet extends Phaser.Scene {
@@ -10,7 +9,7 @@ export class Amulet extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('amulet', amulet);
+        this.load.image('amulet', '../src/assets/amulet.png');
     }
 
     create() {
