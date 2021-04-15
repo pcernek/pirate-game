@@ -27,7 +27,7 @@ export class Lighthouse extends Phaser.Scene {
 
   create() {
     this.add.image(Canvas.widthPx / 2, Canvas.heightPx / 2, lighthouseImage.key);
-    const stoneBasinDropZone = this.add.zone(730, 630, 290, 270).setDropZone()
+    const stoneBasinDropZone = this.add.zone(730, 630, 290, 270).setDropZone(undefined, undefined)
     new BoatOnShelf(620, 120, orangeBoatImage.key).addToScene(this, stoneBasinDropZone)
     new BoatOnShelf(770, 120, jollyRogerBoatImage.key).addToScene(this, stoneBasinDropZone)
     new BoatOnShelf(930, 130, whiteBoatImage.key).addToScene(this, stoneBasinDropZone)
@@ -47,14 +47,14 @@ export class Lighthouse extends Phaser.Scene {
     })
   }
 
-  createClickBox(x, y, width, height, onClick) {
+  createClickBox(x: number, y: number, width: number, height: number, onClick: () => void) {
     let clickHandler = this.add.rectangle(x, y, width, height, CLICK_HANDLER_FILL_COLOR, CLICK_HANDLER_ALPHA)
     clickHandler.setInteractive()
     clickHandler.on(Phaser.Input.Events.POINTER_DOWN, onClick)
     return clickHandler
   }
 
-  createClickCircle(x, y, radius, onClick) {
+  createClickCircle(x: number, y: number, radius: number, onClick: () => void) {
     let clickHandler = this.add.circle(x, y, radius, CLICK_HANDLER_FILL_COLOR, CLICK_HANDLER_ALPHA)
     clickHandler.setInteractive()
     clickHandler.on(Phaser.Input.Events.POINTER_DOWN, onClick)
