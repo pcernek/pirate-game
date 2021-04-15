@@ -1,3 +1,4 @@
+import * as Phaser from 'phaser';
 import { Canvas } from './Canvas';
 import { Amulet } from './scenes/Amulet';
 import { BattleMap } from './scenes/BattleMap';
