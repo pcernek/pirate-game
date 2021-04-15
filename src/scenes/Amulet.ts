@@ -1,6 +1,8 @@
 import * as Phaser from 'phaser';
-import { Images } from '../assets/Images';
+import { ImageDescriptor } from '../assets/ImageDescriptor';
 import { Canvas } from '../Canvas';
+
+const amuletImage = new ImageDescriptor('amulet', 'assets/amulet.png')
 
 export class Amulet extends Phaser.Scene {
   constructor() {
@@ -10,11 +12,11 @@ export class Amulet extends Phaser.Scene {
   }
 
   public preload() {
-    this.load.image(Images.amulet.key, Images.amulet.location);
+    this.load.image(amuletImage.key, amuletImage.location);
   }
 
   public create() {
-    this.add.image(Canvas.widthPx / 2, Canvas.heightPx / 2, Images.amulet.key);
+    this.add.image(Canvas.widthPx / 2, Canvas.heightPx / 2, amuletImage.key);
     this.input.on(Phaser.Input.Events.POINTER_DOWN, () => this.scene.switch('lighthouse'))
   }
 }

@@ -1,13 +1,15 @@
 import * as Phaser from 'phaser';
-import lighthouse from '../assets/lighthouse-sketch.png'
-import orangeBoat from '../assets/orange-boat-200px.png'
-import jollyRogerBoat from '../assets/jolly-roger-boat-200px.png'
-import whiteBoat from '../assets/white-boat-200px.png'
+import { ImageDescriptor } from '../assets/ImageDescriptor';
 import { Canvas } from '../Canvas';
 import { BoatOnShelf } from './BoatOnShelf';
 
 let CLICK_HANDLER_FILL_COLOR = 0x00ff00
 let CLICK_HANDLER_ALPHA = 0
+
+const lighthouseImage = new ImageDescriptor('lighthouse', 'assets/lighthouse-sketch.png')
+const orangeBoatImage = new ImageDescriptor('orangeBoat', 'assets/orange-boat-200px.png')
+const jollyRogerBoatImage = new ImageDescriptor('jollyRogerBoat', 'assets/jolly-roger-boat-200px.png')
+const whiteBoatImage = new ImageDescriptor('whiteBoat', 'assets/white-boat-200px.png')
 
 export class Lighthouse extends Phaser.Scene {
   constructor() {
@@ -17,18 +19,18 @@ export class Lighthouse extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('lighthouse', lighthouse);
-    this.load.image('orangeBoat', orangeBoat)
-    this.load.image('jollyRogerBoat', jollyRogerBoat)
-    this.load.image('whiteBoat', whiteBoat)
+    this.load.image(lighthouseImage.key, lighthouseImage.location);
+    this.load.image(orangeBoatImage.key, orangeBoatImage.location)
+    this.load.image(jollyRogerBoatImage.key, jollyRogerBoatImage.location)
+    this.load.image(whiteBoatImage.key, whiteBoatImage.location)
   }
 
   create() {
-    this.add.image(Canvas.widthPx / 2, Canvas.heightPx / 2, 'lighthouse');
+    this.add.image(Canvas.widthPx / 2, Canvas.heightPx / 2, lighthouseImage.key);
     const stoneBasinDropZone = this.add.zone(730, 630, 290, 270).setDropZone()
-    new BoatOnShelf(620, 120, 'orangeBoat').addToScene(this, stoneBasinDropZone)
-    new BoatOnShelf(770, 120, 'jollyRogerBoat').addToScene(this, stoneBasinDropZone)
-    new BoatOnShelf(930, 130, 'whiteBoat').addToScene(this, stoneBasinDropZone)
+    new BoatOnShelf(620, 120, orangeBoatImage.key).addToScene(this, stoneBasinDropZone)
+    new BoatOnShelf(770, 120, jollyRogerBoatImage.key).addToScene(this, stoneBasinDropZone)
+    new BoatOnShelf(930, 130, whiteBoatImage.key).addToScene(this, stoneBasinDropZone)
 
     this.createClickBox(380, 440, 300, 200, () => {
       this.scene.switch('battleMap')
