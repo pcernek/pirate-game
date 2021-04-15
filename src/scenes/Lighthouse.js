@@ -1,6 +1,8 @@
 import Phaser from 'phaser';
 import lighthouse from '../assets/lighthouse-sketch.png'
+import orangeBoat from '../assets/orange-boat.png'
 import { Canvas } from '../Canvas';
+import { BoatOnShelf } from './BoatOnShelf';
 
 let CLICK_HANDLER_FILL_COLOR = 0x00ff00
 let CLICK_HANDLER_ALPHA = 0
@@ -14,16 +16,18 @@ export class Lighthouse extends Phaser.Scene {
 
     preload() {
         this.load.image('lighthouse', lighthouse);
+        this.load.image('orangeBoat', orangeBoat)
     }
 
     create() {
         this.add.image(Canvas.widthPx/2, Canvas.heightPx/2, 'lighthouse');
+        const stoneBasinDropZone = this.add.zone(730, 630, 290, 270, 0xff0000, 0.5).setDropZone()
+        new BoatOnShelf(620, 120, 'orangeBoat').addToScene(this, stoneBasinDropZone)
+
         this.createClickBox(380, 440, 300, 200, () => {
           this.scene.switch('battleMap')
         })
-        // this.createClickBox(730, 630, 290, 270, () => {
-        //   this.scene.switch('sharks')
-        // })
+
         this.createClickBox(1130, 580, 300, 200, () => {
           this.scene.switch('amulet')
         })
