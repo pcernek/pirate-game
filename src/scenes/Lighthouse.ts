@@ -2,6 +2,7 @@ import * as Phaser from 'phaser';
 import { ImageDescriptor } from '../assets/ImageDescriptor';
 import { Canvas } from '../Canvas';
 import { BoatOnShelf } from './BoatOnShelf';
+import { Scene } from './generic/Scene';
 
 let CLICK_HANDLER_FILL_COLOR = 0x00ff00
 let CLICK_HANDLER_ALPHA = 0
@@ -11,11 +12,10 @@ const orangeBoatImage = new ImageDescriptor('orangeBoat', 'assets/orange-boat-20
 const jollyRogerBoatImage = new ImageDescriptor('jollyRogerBoat', 'assets/jolly-roger-boat-200px.png')
 const whiteBoatImage = new ImageDescriptor('whiteBoat', 'assets/white-boat-200px.png')
 
-export class Lighthouse extends Phaser.Scene {
-  constructor() {
-    super({
-      key: 'lighthouse'
-    });
+export class Lighthouse extends Scene {
+
+  constructor(public readonly key: string) {
+    super(key);
   }
 
   preload() {
