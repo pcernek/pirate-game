@@ -2,6 +2,7 @@ Whimsical diagram (WIP): https://whimsical.com/shark-game-Hyn7tWFJQNLAH5GrBUvUMr
 
 # References
 
+- Originally cloned from https://github.com/photonstorm/phaser3-project-template
 - Making your first Phaser 3 game: https://phaser.io/tutorials/making-your-first-phaser-3-game/part1
 
 ## Gcloud tips and tricks
