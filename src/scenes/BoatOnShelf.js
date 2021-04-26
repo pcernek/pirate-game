@@ -1,7 +1,7 @@
-import Phaser from 'phaser';
+import Phaser from 'phaser'
 
-const grabbedGray = 0x999999;
-const droppableGreen = 0x00ff00;
+const grabbedGray = 0x999999
+const droppableGreen = 0x00ff00
 
 export class BoatOnShelf {
   constructor(x, y, texture) {
@@ -16,7 +16,9 @@ export class BoatOnShelf {
   }
 
   addToScene(scene, dragTarget) {
-    const sprite = scene.add.sprite(this.initialX, this.initialY, this.texture).setInteractive()
+    const sprite = scene.add
+      .sprite(this.initialX, this.initialY, this.texture)
+      .setInteractive()
     scene.input.setDraggable(sprite)
     sprite.on(Phaser.Input.Events.GAMEOBJECT_DRAG, (_pointer, dragX, dragY) => {
       sprite.setTint(this.getTintColor())
