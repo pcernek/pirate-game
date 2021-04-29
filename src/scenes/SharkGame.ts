@@ -2,7 +2,7 @@ import * as Phaser from 'phaser'
 
 const BOAT_SPEED = 160
 
-export class Sharks extends Phaser.Scene {
+export class SharkGame extends Phaser.Scene {
   private cursors: Phaser.Types.Input.Keyboard.CursorKeys
   private player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody
 

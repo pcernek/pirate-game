@@ -1,6 +1,6 @@
 import { DeadEndScene } from './generic/DeadEndScene'
 import { Lighthouse } from './Lighthouse'
-import { Sharks } from './Sharks'
+import { SharkGame } from './SharkGame'
 
 const LighthouseScene = new Lighthouse('lighthouse')
 const AmuletScene = new DeadEndScene(
@@ -24,5 +24,5 @@ export const scenes = [
   AmuletScene,
   BattleMapScene,
   ViewFromWindowScene,
-  new Sharks()
+  new SharkGame()
 ]
