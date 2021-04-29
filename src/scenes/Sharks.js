@@ -1,9 +1,5 @@
 import Phaser from 'phaser'
 
-import sharkImg from '../assets/nico-shark-300px.png'
-import shipImg from '../assets/pirate-ship-black-sail-800.png'
-import rowboatImg from '../assets/rowboat-100.png'
-
 const BOAT_SPEED = 160
 let cursors
 let player
@@ -22,9 +18,9 @@ export class Sharks extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('logo', sharkImg)
-    this.load.image('ship', shipImg)
-    this.load.image('rowboat', rowboatImg)
+    this.load.image('logo', 'assets/sharkGame/nico-shark-300px.png')
+    this.load.image('ship', 'assets/sharkGame/pirate-ship-black-sail-800.png')
+    this.load.image('rowboat', 'assets/sharkGame/rowboat-100.png')
   }
 
   create() {
