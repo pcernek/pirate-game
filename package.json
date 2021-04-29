@@ -11,10 +11,6 @@
     "prestart": "npm run bundle",
     "lint": "prettier --write ."
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/photonstorm/phaser3-project-template.git"
-  },
   "author": "Davy Jones",
   "devDependencies": {
     "@babel/core": "^7.7.2",
