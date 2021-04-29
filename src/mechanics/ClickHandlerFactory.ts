@@ -2,7 +2,7 @@ import * as Phaser from 'phaser'
 import { Point } from '../geometry/Point'
 
 let CLICK_HANDLER_FILL_COLOR = 0x00ff00
-let CLICK_HANDLER_ALPHA = 50
+let CLICK_HANDLER_ALPHA = 0
 
 export class ClickHandlerFactory {
   constructor(private readonly scene: Phaser.Scene) {}
@@ -41,29 +41,22 @@ export class ClickHandlerFactory {
     return this.addClickHandler(circle, onClick)
   }
 
-  /**
-   * Should be called only in a scene's "create" function
-   */
-  public createClickTriangle(
+  public createInvertedClickCircle(
     center: Point,
-    p1: Point,
-    p2: Point,
-    p3: Point,
+    radius: number,
     onClick: () => void
   ) {
-    let triangle = this.scene.add.triangle(
-      center.x,
-      center.y,
-      p1.x,
-      p1.y,
-      p2.x,
-      p2.y,
-      p3.x,
-      p3.y,
-      CLICK_HANDLER_FILL_COLOR,
-      CLICK_HANDLER_ALPHA
-    )
-    return this.addClickHandler(triangle, onClick)
+    // TODO: Is graphics the best way to represent this?
+    const graphics = this.scene.add.graphics()
+    graphics.setInteractive({
+      hitArea: new Phaser.Geom.Circle(center.x, center.y, radius),
+      hitAreaCallback: (circle: Phaser.Geom.Circle, x: number, y: number) => {
+        return !circle.contains(x, y)
+      }
+    })
+    // TODO: Avoid repeating this?
+    graphics.on(Phaser.Input.Events.POINTER_DOWN, onClick)
+    return graphics
   }
 
   private addClickHandler(
