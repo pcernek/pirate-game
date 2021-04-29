@@ -1,6 +1,5 @@
 import { ImageDescriptor } from '../assets/ImageDescriptor'
 import { Canvas } from '../Canvas'
-import { Point } from '../geometry/Point'
 import { ClickHandlerFactory } from '../mechanics/ClickHandlerFactory'
 import { BoatOnShelf } from './BoatOnShelf'
 import { Scene } from './generic/Scene'
@@ -54,20 +53,20 @@ export class Lighthouse extends Scene {
 
     const clickHandlerFactory = new ClickHandlerFactory(this)
 
-    clickHandlerFactory.createClickBox(new Point(380, 440), 300, 200, () => {
+    clickHandlerFactory.createClickBox({ x: 380, y: 440 }, 300, 200, () => {
       this.scene.switch('battleMap')
     })
-    clickHandlerFactory.createClickBox(new Point(730, 630), 290, 270, () => {
+    clickHandlerFactory.createClickBox({ x: 730, y: 630 }, 290, 270, () => {
       this.scene.switch('stoneBasinGame')
     })
 
-    clickHandlerFactory.createClickBox(new Point(1130, 580), 300, 200, () => {
+    clickHandlerFactory.createClickBox({ x: 1130, y: 580 }, 300, 200, () => {
       this.scene.switch('amulet')
     })
-    clickHandlerFactory.createClickCircle(new Point(1200, 280), 130, () => {
+    clickHandlerFactory.createClickCircle({ x: 1200, y: 280 }, 130, () => {
       this.scene.switch('viewFromWindow')
     })
-    clickHandlerFactory.createClickCircle(new Point(400, 230), 110, () => {
+    clickHandlerFactory.createClickCircle({ x: 400, y: 230 }, 110, () => {
       this.scene.switch('sharks')
     })
   }
