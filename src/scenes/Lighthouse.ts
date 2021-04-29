@@ -1,11 +1,8 @@
-import * as Phaser from 'phaser'
 import { ImageDescriptor } from '../assets/ImageDescriptor'
 import { Canvas } from '../Canvas'
+import { ClickHandlerFactory } from '../mechanics/ClickHandlerFactory'
 import { BoatOnShelf } from './BoatOnShelf'
 import { Scene } from './generic/Scene'
-
-let CLICK_HANDLER_FILL_COLOR = 0x00ff00
-let CLICK_HANDLER_ALPHA = 0
 
 const lighthouseImage = new ImageDescriptor(
   'lighthouse',
@@ -54,51 +51,23 @@ export class Lighthouse extends Scene {
       stoneBasinDropZone
     )
 
-    this.createClickBox(380, 440, 300, 200, () => {
+    const clickHandlerFactory = new ClickHandlerFactory(this)
+
+    clickHandlerFactory.createClickBox(380, 440, 300, 200, () => {
       this.scene.switch('battleMap')
     })
+    clickHandlerFactory.createClickBox(730, 630, 290, 270, () => {
+      this.scene.switch('stoneBasinGame')
+    })
 
-    this.createClickBox(1130, 580, 300, 200, () => {
+    clickHandlerFactory.createClickBox(1130, 580, 300, 200, () => {
       this.scene.switch('amulet')
     })
-    this.createClickCircle(1200, 280, 130, () => {
+    clickHandlerFactory.createClickCircle(1200, 280, 130, () => {
       this.scene.switch('viewFromWindow')
     })
-    this.createClickCircle(400, 230, 110, () => {
+    clickHandlerFactory.createClickCircle(400, 230, 110, () => {
       this.scene.switch('sharks')
     })
-  }
-
-  createClickBox(
-    x: number,
-    y: number,
-    width: number,
-    height: number,
-    onClick: () => void
-  ) {
-    let clickHandler = this.add.rectangle(
-      x,
-      y,
-      width,
-      height,
-      CLICK_HANDLER_FILL_COLOR,
-      CLICK_HANDLER_ALPHA
-    )
-    clickHandler.setInteractive()
-    clickHandler.on(Phaser.Input.Events.POINTER_DOWN, onClick)
-    return clickHandler
-  }
-
-  createClickCircle(x: number, y: number, radius: number, onClick: () => void) {
-    let clickHandler = this.add.circle(
-      x,
-      y,
-      radius,
-      CLICK_HANDLER_FILL_COLOR,
-      CLICK_HANDLER_ALPHA
-    )
-    clickHandler.setInteractive()
-    clickHandler.on(Phaser.Input.Events.POINTER_DOWN, onClick)
-    return clickHandler
   }
 }
