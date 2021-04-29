@@ -21,7 +21,7 @@ const jollyRogerBoatImage = new ImageDescriptor(
 )
 const whiteBoatImage = new ImageDescriptor(
   'whiteBoat',
-  'assets/white-boat-200px.png'
+  'assets/the-ram-200px.png'
 )
 
 export class Lighthouse extends Scene {
