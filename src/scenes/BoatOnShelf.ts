@@ -20,7 +20,7 @@ export class BoatOnShelf {
   public addToScene(scene: Phaser.Scene, dragTarget: Phaser.GameObjects.Zone) {
     const sprite = scene.add
       .sprite(this.initialX, this.initialY, this.texture)
-      .setInteractive()
+      .setInteractive({ useHandCursor: true })
     scene.input.setDraggable(sprite)
     sprite.on(
       Phaser.Input.Events.GAMEOBJECT_DRAG,

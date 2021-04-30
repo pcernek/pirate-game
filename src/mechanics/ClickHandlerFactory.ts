@@ -63,7 +63,7 @@ export class ClickHandlerFactory {
     shape: Phaser.GameObjects.Shape,
     onClick: () => void
   ) {
-    shape.setInteractive()
+    shape.setInteractive({ useHandCursor: true })
     shape.on(Phaser.Input.Events.POINTER_DOWN, onClick)
     return shape
   }
