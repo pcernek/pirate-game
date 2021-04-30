@@ -42,10 +42,12 @@ export class StoneBasinGame extends Phaser.Scene {
     const outerBasinArea = new Phaser.Geom.Circle(800, 400, 450)
     const innerBasinArea = new Phaser.Geom.Circle(800, 400, 400)
     new OverheadBoat(
-      { x: 800, y: 400 },
-      0,
-      overheadBoat.key,
-      innerBasinArea
+      {
+        startPosition: { x: 800, y: 400 },
+        startRotation: 0,
+        bounds: innerBasinArea
+      },
+      overheadBoat.key
     ).addToScene(this)
 
     const clickHandlerFactory = new ClickHandlerFactory(this)

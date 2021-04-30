@@ -21,8 +21,8 @@ const ViewFromWindowScene = new DeadEndScene(
 )
 
 export const scenes = [
-  LighthouseScene,
   new StoneBasinGame(),
+  LighthouseScene,
   AmuletScene,
   BattleMapScene,
   ViewFromWindowScene,
