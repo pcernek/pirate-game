@@ -34,7 +34,7 @@ export class OverheadBoat {
       this.bowOffset.y,
       40,
       0x00ff00,
-      50
+      0
     )
 
     const container = scene.add
