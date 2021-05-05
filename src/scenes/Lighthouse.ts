@@ -2,6 +2,7 @@ import { ImageDescriptor } from '../assets/ImageDescriptor'
 import { Canvas } from '../Canvas'
 import { ClickHandlerFactory } from '../mechanics/ClickHandlerFactory'
 import { BoatOnShelf } from './BoatOnShelf'
+import { BoatState, ToyBoat } from './BoatState'
 import { Scene } from './generic/Scene'
 
 const lighthouseImage = new ImageDescriptor(
@@ -16,40 +17,35 @@ const jollyRogerBoatImage = new ImageDescriptor(
   'jollyRogerBoat',
   'assets/jolly-roger-boat-200px.png'
 )
-const whiteBoatImage = new ImageDescriptor(
-  'whiteBoat',
-  'assets/the-ram-200px.png'
-)
+const theRamImage = new ImageDescriptor('theRam', 'assets/the-ram-200px.png')
 
 export class Lighthouse extends Scene {
   constructor(public readonly key: string) {
-    super(key)
+    super(key, { active: true, visible: true })
   }
 
   preload() {
     this.load.image(lighthouseImage.key, lighthouseImage.location)
     this.load.image(orangeBoatImage.key, orangeBoatImage.location)
     this.load.image(jollyRogerBoatImage.key, jollyRogerBoatImage.location)
-    this.load.image(whiteBoatImage.key, whiteBoatImage.location)
+    this.load.image(theRamImage.key, theRamImage.location)
   }
 
   create() {
     this.add.image(Canvas.widthPx / 2, Canvas.heightPx / 2, lighthouseImage.key)
+
     const stoneBasinDropZone = this.add
       .zone(730, 630, 290, 270)
       .setDropZone(undefined, undefined)
-    new BoatOnShelf(620, 120, orangeBoatImage.key).addToScene(
-      this,
-      stoneBasinDropZone
-    )
-    new BoatOnShelf(770, 120, jollyRogerBoatImage.key).addToScene(
-      this,
-      stoneBasinDropZone
-    )
-    new BoatOnShelf(930, 130, whiteBoatImage.key).addToScene(
-      this,
-      stoneBasinDropZone
-    )
+    new BoatOnShelf(620, 120, orangeBoatImage.key, () => {
+      BoatState.placeInBasin(ToyBoat.Orange)
+    }).addToScene(this, stoneBasinDropZone)
+    new BoatOnShelf(770, 120, jollyRogerBoatImage.key, () => {
+      BoatState.placeInBasin(ToyBoat.JollyRoger)
+    }).addToScene(this, stoneBasinDropZone)
+    new BoatOnShelf(930, 130, theRamImage.key, () => {
+      BoatState.placeInBasin(ToyBoat.TheRam)
+    }).addToScene(this, stoneBasinDropZone)
 
     const clickHandlerFactory = new ClickHandlerFactory(this)
 

@@ -8,7 +8,12 @@ export class BoatOnShelf {
   private readonly initialY: number
   private isInDropZone: boolean = false
 
-  constructor(x: number, y: number, private readonly texture: string) {
+  constructor(
+    x: number,
+    y: number,
+    private readonly imageKey: string,
+    private readonly onBoatDropped: () => void
+  ) {
     this.initialX = x
     this.initialY = y
   }
@@ -19,7 +24,7 @@ export class BoatOnShelf {
 
   public addToScene(scene: Phaser.Scene, dragTarget: Phaser.GameObjects.Zone) {
     const sprite = scene.add
-      .sprite(this.initialX, this.initialY, this.texture)
+      .sprite(this.initialX, this.initialY, this.imageKey)
       .setInteractive({ useHandCursor: true })
     scene.input.setDraggable(sprite)
     sprite.on(
@@ -50,6 +55,7 @@ export class BoatOnShelf {
       sprite.clearTint()
       if (this.isInDropZone) {
         sprite.setVisible(false)
+        this.onBoatDropped()
       } else {
         sprite.x = this.initialX
         sprite.y = this.initialY

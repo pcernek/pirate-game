@@ -2,6 +2,7 @@ import * as Phaser from 'phaser'
 import { ImageDescriptor } from '../assets/ImageDescriptor'
 import { Canvas } from '../Canvas'
 import { ClickHandlerFactory } from '../mechanics/ClickHandlerFactory'
+import { ToyBoat } from './BoatState'
 import { OverheadBoat } from './stoneBasin/OverheadBoat'
 
 const stoneBasinBackground = new ImageDescriptor(
@@ -9,8 +10,8 @@ const stoneBasinBackground = new ImageDescriptor(
   'assets/stoneBasinGame/stone-basin-scene.png'
 )
 
-const overheadBoat = new ImageDescriptor(
-  'overheadBoat',
+const theRamOverhead = new ImageDescriptor(
+  'ramOverhead',
   'assets/stoneBasinGame/boat-overhead-silhouette.png'
 )
 
@@ -18,6 +19,7 @@ export class StoneBasinGame extends Phaser.Scene {
   constructor() {
     super({
       key: 'stoneBasinGame',
+      active: true,
       physics: {
         default: 'arcade',
         arcade: {
@@ -29,7 +31,7 @@ export class StoneBasinGame extends Phaser.Scene {
 
   public preload() {
     this.load.image(stoneBasinBackground.key, stoneBasinBackground.location)
-    this.load.image(overheadBoat.key, overheadBoat.location)
+    this.load.image(theRamOverhead.key, theRamOverhead.location)
   }
 
   public create() {
@@ -41,18 +43,21 @@ export class StoneBasinGame extends Phaser.Scene {
 
     const outerBasinArea = new Phaser.Geom.Circle(800, 400, 450)
     const innerBasinArea = new Phaser.Geom.Circle(800, 400, 400)
+
     new OverheadBoat(
+      ToyBoat.TheRam,
       {
         startPosition: { x: 800, y: 400 },
         startRotation: 0,
         bounds: innerBasinArea
       },
-      overheadBoat.key
+      theRamOverhead.key
     ).addToScene(this)
 
     const clickHandlerFactory = new ClickHandlerFactory(this)
     clickHandlerFactory.createInvertedClickCircle(outerBasinArea, () =>
       this.scene.switch('lighthouse')
     )
+    this.scene.sendToBack('stoneBasinGame')
   }
 }

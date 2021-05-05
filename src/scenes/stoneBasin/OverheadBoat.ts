@@ -1,7 +1,6 @@
 import * as Phaser from 'phaser'
 import { Point } from 'geometry'
-
-const grabbedGray = 0x999999
+import { ToyBoat, BoatState } from '../BoatState'
 
 export interface OverheadBoatConfiguration {
   startPosition: Point
@@ -19,8 +18,9 @@ export class OverheadBoat {
   private bowOffset: Point = { x: 0, y: -90 }
 
   constructor(
+    private readonly boat: ToyBoat,
     private readonly config: OverheadBoatConfiguration,
-    private readonly texture: string
+    private readonly imageKey: string
   ) {
     this.tempMatrix = new Phaser.GameObjects.Components.TransformMatrix()
     this.tempParentMatrix = new Phaser.GameObjects.Components.TransformMatrix()
@@ -28,7 +28,7 @@ export class OverheadBoat {
 
   public addToScene(scene: Phaser.Scene) {
     const { x, y } = this.config.startPosition
-    const boat = scene.add.sprite(0, 0, this.texture)
+    const boat = scene.add.sprite(0, 0, this.imageKey)
     const bow = scene.add.circle(
       this.bowOffset.x,
       this.bowOffset.y,
@@ -42,7 +42,7 @@ export class OverheadBoat {
       .setSize(100, 200)
       .setRotation(this.config.startRotation)
       .setInteractive({ useHandCursor: true })
-
+      .setVisible(BoatState.isInBasin(this.boat))
     scene.input.setDraggable(container)
 
     container.on(
@@ -87,9 +87,5 @@ export class OverheadBoat {
         }
       }
     )
-  }
-
-  public getTintColor() {
-    return grabbedGray
   }
 }
