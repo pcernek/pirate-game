@@ -1,4 +1,5 @@
 import * as Phaser from 'phaser'
+import { Debug } from '../util/Debug'
 import { ImageDescriptor } from '../assets/ImageDescriptor'
 import { Canvas } from '../Canvas'
 import { ClickHandlerFactory } from '../mechanics/ClickHandlerFactory'
@@ -12,6 +13,14 @@ const stoneBasinBackground = new ImageDescriptor(
 
 const theRamOverhead = new ImageDescriptor(
   'ramOverhead',
+  'assets/stoneBasinGame/boat-overhead-silhouette.png'
+)
+const jollyRogerOverhead = new ImageDescriptor(
+  'jollyRogerOverhead',
+  'assets/stoneBasinGame/boat-overhead-silhouette.png'
+)
+const orangeBoatOverhead = new ImageDescriptor(
+  'orangeBoatOverhead',
   'assets/stoneBasinGame/boat-overhead-silhouette.png'
 )
 
@@ -32,9 +41,13 @@ export class StoneBasinGame extends Phaser.Scene {
   public preload() {
     this.load.image(stoneBasinBackground.key, stoneBasinBackground.location)
     this.load.image(theRamOverhead.key, theRamOverhead.location)
+    this.load.image(jollyRogerOverhead.key, jollyRogerOverhead.location)
+    this.load.image(orangeBoatOverhead.key, orangeBoatOverhead.location)
   }
 
   public create() {
+    Debug.log(`Creating ${StoneBasinGame.name}`)
+
     this.add.image(
       Canvas.widthPx / 2,
       Canvas.heightPx / 2,
@@ -47,11 +60,31 @@ export class StoneBasinGame extends Phaser.Scene {
     new OverheadBoat(
       ToyBoat.TheRam,
       {
-        startPosition: { x: 800, y: 400 },
-        startRotation: 0,
+        startPosition: { x: 800, y: 650 },
+        startRotation: 1.5,
         bounds: innerBasinArea
       },
       theRamOverhead.key
+    ).addToScene(this)
+
+    new OverheadBoat(
+      ToyBoat.JollyRoger,
+      {
+        startPosition: { x: 500, y: 330 },
+        startRotation: -0.4,
+        bounds: innerBasinArea
+      },
+      jollyRogerOverhead.key
+    ).addToScene(this)
+
+    new OverheadBoat(
+      ToyBoat.Orange,
+      {
+        startPosition: { x: 880, y: 140 },
+        startRotation: -2.3,
+        bounds: innerBasinArea
+      },
+      orangeBoatOverhead.key
     ).addToScene(this)
 
     const clickHandlerFactory = new ClickHandlerFactory(this)

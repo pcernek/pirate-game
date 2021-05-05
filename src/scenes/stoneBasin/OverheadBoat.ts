@@ -1,6 +1,7 @@
 import * as Phaser from 'phaser'
 import { Point } from 'geometry'
 import { ToyBoat, BoatState } from '../BoatState'
+import { Debug } from '../../util/Debug'
 
 export interface OverheadBoatConfiguration {
   startPosition: Point
@@ -16,6 +17,8 @@ export class OverheadBoat {
   private tempParentMatrix: Phaser.GameObjects.Components.TransformMatrix
 
   private bowOffset: Point = { x: 0, y: -90 }
+
+  private container: Phaser.GameObjects.Container
 
   constructor(
     private readonly boat: ToyBoat,
@@ -44,6 +47,8 @@ export class OverheadBoat {
       .setInteractive({ useHandCursor: true })
       .setVisible(BoatState.isInBasin(this.boat))
     scene.input.setDraggable(container)
+    this.container = container
+    BoatState.onMoveToBasin(this.boat, () => this.setVisible())
 
     container.on(
       Phaser.Input.Events.GAMEOBJECT_DRAG_START,
@@ -87,5 +92,10 @@ export class OverheadBoat {
         }
       }
     )
+  }
+
+  public setVisible() {
+    Debug.log(`Set ${this.boat} to visible`)
+    this.container.setVisible(true)
   }
 }
