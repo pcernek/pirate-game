@@ -7,11 +7,11 @@ import { Scene } from './generic/Scene'
 
 const lighthouseImage = new ImageDescriptor(
   'lighthouse',
-  'assets/lighthouse-sketch.png'
+  'assets/inside lighthouse.png'
 )
 const orangeBoatImage = new ImageDescriptor(
   'orangeBoat',
-  'assets/orange-boat-200px.png'
+  'assets/the devil.png'
 )
 const jollyRogerBoatImage = new ImageDescriptor(
   'jollyRogerBoat',
@@ -32,7 +32,8 @@ export class Lighthouse extends Scene {
   }
 
   create() {
-    this.add.image(Canvas.widthPx / 2, Canvas.heightPx / 2, lighthouseImage.key)
+    const v = this.add.image(Canvas.widthPx / 2, Canvas.heightPx / 2, lighthouseImage.key);
+    v.setScale(0.5)
 
     const stoneBasinDropZone = this.add
       .zone(730, 630, 290, 270)

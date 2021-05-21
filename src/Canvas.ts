@@ -1,4 +1,5 @@
 export const Canvas = {
-  widthPx: 1600,
-  heightPx: 800
+  widthPx: 2033/2,
+  heightPx: 1536/2
+  
 }
