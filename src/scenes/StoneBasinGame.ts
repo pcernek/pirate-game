@@ -15,10 +15,6 @@ const theRamOverhead = new ImageDescriptor(
   'ramOverhead',
   'assets/stoneBasinGame/boat-overhead-silhouette.png'
 )
-const jollyRogerOverhead = new ImageDescriptor(
-  'jollyRogerOverhead',
-  'assets/stoneBasinGame/boat-overhead-silhouette.png'
-)
 const orangeBoatOverhead = new ImageDescriptor(
   'orangeBoatOverhead',
   'assets/stoneBasinGame/boat-overhead-silhouette.png'
@@ -41,7 +37,6 @@ export class StoneBasinGame extends Phaser.Scene {
   public preload() {
     this.load.image(stoneBasinBackground.key, stoneBasinBackground.location)
     this.load.image(theRamOverhead.key, theRamOverhead.location)
-    this.load.image(jollyRogerOverhead.key, jollyRogerOverhead.location)
     this.load.image(orangeBoatOverhead.key, orangeBoatOverhead.location)
   }
 
@@ -67,15 +62,6 @@ export class StoneBasinGame extends Phaser.Scene {
       theRamOverhead.key
     ).addToScene(this)
 
-    new OverheadBoat(
-      ToyBoat.JollyRoger,
-      {
-        startPosition: { x: 500, y: 330 },
-        startRotation: -0.4,
-        bounds: innerBasinArea
-      },
-      jollyRogerOverhead.key
-    ).addToScene(this)
 
     new OverheadBoat(
       ToyBoat.Orange,
