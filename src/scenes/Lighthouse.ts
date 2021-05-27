@@ -31,29 +31,26 @@ export class Lighthouse extends Scene {
     const v = this.add.image(Canvas.widthPx / 2, Canvas.heightPx / 2, lighthouseImage.key);
     v.setScale(0.61)
     const stoneBasinDropZone = this.add
-      .zone(730, 630, 290, 270)
+      .zone(880, 510, 200, 100)
       .setDropZone(undefined, undefined)
     new BoatOnShelf(500, 530, orangeBoatImage.key, () => {
       BoatState.placeInBasin(ToyBoat.Orange)
     }).addToScene(this, stoneBasinDropZone)
    
-    new BoatOnShelf(930, 130, theRamImage.key, () => {
+    new BoatOnShelf(1250, 245, theRamImage.key, () => {
       BoatState.placeInBasin(ToyBoat.TheRam)
     }).addToScene(this, stoneBasinDropZone)
 
     const clickHandlerFactory = new ClickHandlerFactory(this)
 
-    clickHandlerFactory.createClickBox({ x: 380, y: 440 }, 300, 200, () => {
-      this.scene.switch('battleMap')
-    })
-    clickHandlerFactory.createClickBox({ x: 730, y: 630 }, 290, 270, () => {
+    clickHandlerFactory.createClickBox({ x: 880, y: 510 }, 200, 100, () => {
       this.scene.switch('stoneBasinGame')
     })
 
-    clickHandlerFactory.createClickBox({ x: 1130, y: 580 }, 300, 200, () => {
+    clickHandlerFactory.createClickBox({ x: 1300, y: 90 }, 50, 50, () => {
       this.scene.switch('amulet')
     })
-    clickHandlerFactory.createClickCircle({ x: 1200, y: 280 }, 130, () => {
+    clickHandlerFactory.createClickCircle({ x: 950, y: 210 }, 130, () => {
       this.scene.switch('viewFromWindow')
     })
     clickHandlerFactory.createClickCircle({ x: 400, y: 230 }, 110, () => {
