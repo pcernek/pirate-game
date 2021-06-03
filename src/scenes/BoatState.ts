@@ -28,14 +28,18 @@ export class BoatState {
     }
   }
 
-  public static isInBasin(boat: ToyBoat) {
+  public static onMoveToBasin(boat: ToyBoat, callback: Callback) {
+    if (this.isInBasin(boat)) {
+      callback()
+    } else {
+      this.boatsInBasin[boat].callbacks.push(callback)
+    }
+  }
+
+  private static isInBasin(boat: ToyBoat) {
     const isInBasin = this.boatsInBasin[boat].isInBasin
     const qualifier = isInBasin ? '' : ' NOT '
     Debug.log(`Boat ${boat} is ${qualifier} in the basin`)
     return isInBasin
-  }
-
-  public static onMoveToBasin(boat: ToyBoat, callback: Callback) {
-    this.boatsInBasin[boat].callbacks.push(callback)
   }
 }

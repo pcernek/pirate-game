@@ -51,21 +51,12 @@ export class StoneBasinGame extends Phaser.Scene {
       stoneBasinBackground.key
     )
 
-    if (BoatState.isInBasin(ToyBoat.TheRam)) {
+    BoatState.onMoveToBasin(ToyBoat.TheRam, () => 
       this.addTheRam()
-    } else {
-      BoatState.onMoveToBasin(ToyBoat.TheRam, () => 
-        this.addTheRam()
-      )
-    }
-
-    if (BoatState.isInBasin(ToyBoat.TheDevil)) {
+    )
+    BoatState.onMoveToBasin(ToyBoat.TheDevil, () => 
       this.addTheDevil()
-    } else {
-      BoatState.onMoveToBasin(ToyBoat.TheDevil, () => 
-        this.addTheDevil()
-      )
-    }
+    )
 
     const clickHandlerFactory = new ClickHandlerFactory(this)
     clickHandlerFactory.createInvertedClickCircle(OUTER_BASIN_AREA, () =>
