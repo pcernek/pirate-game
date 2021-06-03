@@ -24,7 +24,6 @@ export class StoneBasinGame extends Phaser.Scene {
   constructor() {
     super({
       key: 'stoneBasinGame',
-      active: true,
       physics: {
         default: 'arcade',
         arcade: {
@@ -77,6 +76,5 @@ export class StoneBasinGame extends Phaser.Scene {
     clickHandlerFactory.createInvertedClickCircle(outerBasinArea, () =>
       this.scene.switch('lighthouse')
     )
-    this.scene.sendToBack('stoneBasinGame')
   }
 }
