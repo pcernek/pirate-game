@@ -3,7 +3,7 @@ import { Debug } from '../util/Debug'
 import { ImageDescriptor } from '../assets/ImageDescriptor'
 import { Canvas } from '../Canvas'
 import { ClickHandlerFactory } from '../mechanics/ClickHandlerFactory'
-import { ToyBoat } from './BoatState'
+import { BoatState, ToyBoat } from './BoatState'
 import { OverheadBoat } from './stoneBasin/OverheadBoat'
 
 const stoneBasinBackground = new ImageDescriptor(
@@ -19,6 +19,9 @@ const theDevilOverhead = new ImageDescriptor(
   'theDevilOverhead',
   'assets/stoneBasinGame/the-devil-overhead.png'
 )
+
+const OUTER_BASIN_AREA = new Phaser.Geom.Circle(800, 400, 450)
+const INNER_BASIN_AREA = new Phaser.Geom.Circle(800, 400, 400)
 
 export class StoneBasinGame extends Phaser.Scene {
   constructor() {
@@ -48,33 +51,47 @@ export class StoneBasinGame extends Phaser.Scene {
       stoneBasinBackground.key
     )
 
-    const outerBasinArea = new Phaser.Geom.Circle(800, 400, 450)
-    const innerBasinArea = new Phaser.Geom.Circle(800, 400, 400)
+    if (BoatState.isInBasin(ToyBoat.TheRam)) {
+      this.addTheRam()
+    } else {
+      BoatState.onMoveToBasin(ToyBoat.TheRam, () => 
+        this.addTheRam()
+      )
+    }
 
+    if (BoatState.isInBasin(ToyBoat.TheDevil)) {
+      this.addTheDevil()
+    } else {
+      BoatState.onMoveToBasin(ToyBoat.TheDevil, () => 
+        this.addTheDevil()
+      )
+    }
+
+    const clickHandlerFactory = new ClickHandlerFactory(this)
+    clickHandlerFactory.createInvertedClickCircle(OUTER_BASIN_AREA, () =>
+      this.scene.switch('lighthouse')
+    )
+  }
+
+  private addTheRam() {
     new OverheadBoat(
-      ToyBoat.TheRam,
       {
         startPosition: { x: 800, y: 650 },
         startRotation: 1.5,
-        bounds: innerBasinArea
+        bounds: INNER_BASIN_AREA
       },
       theRamOverhead.key
     ).addToScene(this)
+  }
 
-
+  private addTheDevil() {
     new OverheadBoat(
-      ToyBoat.TheDevil,
       {
         startPosition: { x: 880, y: 140 },
         startRotation: -2.3,
-        bounds: innerBasinArea
+        bounds: INNER_BASIN_AREA
       },
       theDevilOverhead.key
     ).addToScene(this)
-
-    const clickHandlerFactory = new ClickHandlerFactory(this)
-    clickHandlerFactory.createInvertedClickCircle(outerBasinArea, () =>
-      this.scene.switch('lighthouse')
-    )
   }
 }

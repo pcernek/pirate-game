@@ -1,7 +1,5 @@
 import * as Phaser from 'phaser'
 import { Point } from 'geometry'
-import { ToyBoat, BoatState } from '../BoatState'
-import { Debug } from '../../util/Debug'
 
 export interface OverheadBoatConfiguration {
   startPosition: Point
@@ -18,10 +16,7 @@ export class OverheadBoat {
 
   private bowOffset: Point
 
-  private container: Phaser.GameObjects.Container
-
   constructor(
-    private readonly boat: ToyBoat,
     private readonly config: OverheadBoatConfiguration,
     private readonly imageKey: string
   ) {
@@ -36,7 +31,7 @@ export class OverheadBoat {
     this.bowOffset = { x: 0, y: -boat.height / 2 }
     const bowHandleRadius = boat.height / 4
 
-    const bow = scene.add.circle(
+    const bowHandle = scene.add.circle(
       this.bowOffset.x,
       this.bowOffset.y,
       bowHandleRadius,
@@ -45,31 +40,16 @@ export class OverheadBoat {
     )
 
     const container = scene.add
-      .container(x, y, [boat, bow])
+      .container(x, y, [boat, bowHandle])
       .setSize(boat.width, boat.height)
       .setRotation(this.config.startRotation)
       .setInteractive({ useHandCursor: true })
-      .setVisible(BoatState.isInBasin(this.boat))
     scene.input.setDraggable(container)
-    this.container = container
-    BoatState.onMoveToBasin(this.boat, () => this.setVisible())
 
     container.on(
       Phaser.Input.Events.GAMEOBJECT_DRAG_START,
       (pointer: Phaser.Input.Pointer) => {
-        // TODO: There has got to be a better way!
-        bow.getWorldTransformMatrix(this.tempMatrix, this.tempParentMatrix)
-        var d = this.tempMatrix.decomposeMatrix() as any
-        const currentCircle = new Phaser.Geom.Circle(
-          d.translateX,
-          d.translateY,
-          bow.radius
-        )
-        if (currentCircle.contains(pointer.worldX, pointer.worldY)) {
-          this.mode = 'rotate'
-        } else {
-          this.mode = 'translate'
-        }
+        this.setDragMode(bowHandle, pointer)
       }
     )
 
@@ -77,29 +57,48 @@ export class OverheadBoat {
       Phaser.Input.Events.GAMEOBJECT_DRAG,
       (pointer: Phaser.Input.Pointer, dragX: number, dragY: number) => {
         if (this.mode === 'rotate') {
-          const pointerPosition = { x: pointer.worldX, y: pointer.worldY }
-          const origin = { x: container.x, y: container.y }
-          const p0 = {
-              x: this.bowOffset.x + container.x,
-              y: this.bowOffset.y + container.y
-            },
-            p1 = pointerPosition
-          var a0 = Phaser.Math.Angle.BetweenPoints(origin, p0),
-            a1 = Phaser.Math.Angle.BetweenPoints(origin, p1)
-          const deltaRotation = Phaser.Math.Angle.Wrap(a1 - a0)
-          container.setRotation(deltaRotation)
+          this.rotate(pointer, container)
         } else {
-          if (this.config.bounds.contains(dragX, dragY)) {
-            container.x = dragX
-            container.y = dragY
-          }
+          this.translate(dragX, dragY, container)
         }
       }
     )
   }
 
-  public setVisible() {
-    Debug.log(`Set ${this.boat} to visible`)
-    this.container.setVisible(true)
+  private setDragMode(bow: Phaser.GameObjects.Arc, pointer: Phaser.Input.Pointer) {
+    // TODO: There has got to be a better way!
+    bow.getWorldTransformMatrix(this.tempMatrix, this.tempParentMatrix)
+    var d = this.tempMatrix.decomposeMatrix() as any
+    const currentCircle = new Phaser.Geom.Circle(
+      d.translateX,
+      d.translateY,
+      bow.radius
+    )
+    if (currentCircle.contains(pointer.worldX, pointer.worldY)) {
+      this.mode = 'rotate'
+    } else {
+      this.mode = 'translate'
+    }
+  }
+
+  private translate(dragX: number, dragY: number, container: Phaser.GameObjects.Container) {
+    if (this.config.bounds.contains(dragX, dragY)) {
+      container.x = dragX
+      container.y = dragY
+    }
+  }
+
+  private rotate(pointer: Phaser.Input.Pointer, container: Phaser.GameObjects.Container) {
+    const pointerPosition = { x: pointer.worldX, y: pointer.worldY }
+    const origin = { x: container.x, y: container.y }
+    const p0 = {
+      x: this.bowOffset.x + container.x,
+      y: this.bowOffset.y + container.y
+    },
+      p1 = pointerPosition
+    var a0 = Phaser.Math.Angle.BetweenPoints(origin, p0),
+      a1 = Phaser.Math.Angle.BetweenPoints(origin, p1)
+    const deltaRotation = Phaser.Math.Angle.Wrap(a1 - a0)
+    container.setRotation(deltaRotation)
   }
 }
