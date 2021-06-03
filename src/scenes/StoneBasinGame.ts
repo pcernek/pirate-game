@@ -4,6 +4,7 @@ import { ImageDescriptor } from '../assets/ImageDescriptor'
 import { Canvas } from '../Canvas'
 import { ClickHandlerFactory } from '../mechanics/ClickHandlerFactory'
 import { BoatState, ToyBoat } from './BoatState'
+import { BoatPositionState } from './BoatPositionState'
 import { OverheadBoat } from './stoneBasin/OverheadBoat'
 
 const stoneBasinBackground = new ImageDescriptor(
@@ -18,6 +19,11 @@ const theRamOverhead = new ImageDescriptor(
 const theDevilOverhead = new ImageDescriptor(
   'theDevilOverhead',
   'assets/stoneBasinGame/the-devil-overhead.png'
+)
+
+const lighthouseOverhead = new ImageDescriptor(
+  'lighthouseOverhead',
+  'assets/stoneBasinGame/lighthouse-overhead.png'
 )
 
 const OUTER_BASIN_AREA = new Phaser.Geom.Circle(800, 400, 450)
@@ -40,6 +46,7 @@ export class StoneBasinGame extends Phaser.Scene {
     this.load.image(stoneBasinBackground.key, stoneBasinBackground.location)
     this.load.image(theRamOverhead.key, theRamOverhead.location)
     this.load.image(theDevilOverhead.key, theDevilOverhead.location)
+    this.load.image(lighthouseOverhead.key, lighthouseOverhead.location)
   }
 
   public create() {
@@ -57,6 +64,9 @@ export class StoneBasinGame extends Phaser.Scene {
     BoatState.onMoveToBasin(ToyBoat.TheDevil, () => 
       this.addTheDevil()
     )
+    BoatPositionState.onAllBoatsInPosition(() => 
+      this.addLighthouse()
+    )
 
     const clickHandlerFactory = new ClickHandlerFactory(this)
     clickHandlerFactory.createInvertedClickCircle(OUTER_BASIN_AREA, () =>
@@ -66,6 +76,7 @@ export class StoneBasinGame extends Phaser.Scene {
 
   private addTheRam() {
     new OverheadBoat(
+      ToyBoat.TheRam,
       {
         startPosition: { x: 800, y: 650 },
         startRotation: 1.5,
@@ -79,6 +90,7 @@ export class StoneBasinGame extends Phaser.Scene {
 
   private addTheDevil() {
     new OverheadBoat(
+      ToyBoat.TheDevil,
       {
         startPosition: { x: 880, y: 140 },
         startRotation: -2.3,
@@ -88,5 +100,10 @@ export class StoneBasinGame extends Phaser.Scene {
       },
       theDevilOverhead.key
     ).addToScene(this)
+  }
+
+  private addLighthouse() {
+    Debug.log('Adding lighthouse to stone basin scene')
+    this.add.image(800, 400, lighthouseOverhead.key)
   }
 }

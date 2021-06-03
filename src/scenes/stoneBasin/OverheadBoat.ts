@@ -1,5 +1,7 @@
 import * as Phaser from 'phaser'
 import { Point } from 'geometry'
+import { BoatPositionState } from '../BoatPositionState'
+import { ToyBoat } from '../BoatState'
 
 export interface OverheadBoatConfiguration {
   startPosition: Point
@@ -19,10 +21,8 @@ export class OverheadBoat {
 
   private bowOffset: Point
 
-  private isAtTargetPosition: boolean = false
-  private hasTargetRotation: boolean = false
-
   constructor(
+    private readonly boat: ToyBoat,
     private readonly config: OverheadBoatConfiguration,
     private readonly imageKey: string
   ) {
@@ -67,9 +67,6 @@ export class OverheadBoat {
         } else {
           this.translate(dragX, dragY, container, boat)
         }
-        if (this.isAtTargetPosition && this.hasTargetRotation) {
-          // TODO
-        }
       }
     )
   }
@@ -97,10 +94,10 @@ export class OverheadBoat {
     }
 
     if (Phaser.Math.Distance.BetweenPoints(container, this.config.targetPosition) < TARGET_DISTANCE_MARGIN) {
-      this.isAtTargetPosition = true
+      BoatPositionState.setTargetLocation(this.boat, true)
       boat.setTintFill(0x0000ff)
     } else {
-      this.isAtTargetPosition = false
+      BoatPositionState.setTargetLocation(this.boat, false)
       boat.clearTint()
     }
   }
@@ -119,10 +116,10 @@ export class OverheadBoat {
     container.setRotation(deltaRotation)
     
     if (Math.abs(deltaRotation - this.config.targetRotation) < TARGET_ROTATION_MARGIN) {
-      this.hasTargetRotation = true
+      BoatPositionState.setTargetRotation(this.boat, true)
       circle.setStrokeStyle(4, 0x000000)
     } else {
-      this.hasTargetRotation = false
+      BoatPositionState.setTargetRotation(this.boat, false)
       circle.setStrokeStyle()
     }
   }
