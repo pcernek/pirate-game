@@ -12,12 +12,12 @@ const stoneBasinBackground = new ImageDescriptor(
 )
 
 const theRamOverhead = new ImageDescriptor(
-  'ramOverhead',
-  'assets/stoneBasinGame/boat-overhead-silhouette.png'
+  'theRamOverhead',
+  'assets/stoneBasinGame/the-ram-overhead.png'
 )
-const orangeBoatOverhead = new ImageDescriptor(
-  'orangeBoatOverhead',
-  'assets/stoneBasinGame/boat-overhead-silhouette.png'
+const theDevilOverhead = new ImageDescriptor(
+  'theDevilOverhead',
+  'assets/stoneBasinGame/the-devil-overhead.png'
 )
 
 export class StoneBasinGame extends Phaser.Scene {
@@ -36,7 +36,7 @@ export class StoneBasinGame extends Phaser.Scene {
   public preload() {
     this.load.image(stoneBasinBackground.key, stoneBasinBackground.location)
     this.load.image(theRamOverhead.key, theRamOverhead.location)
-    this.load.image(orangeBoatOverhead.key, orangeBoatOverhead.location)
+    this.load.image(theDevilOverhead.key, theDevilOverhead.location)
   }
 
   public create() {
@@ -69,7 +69,7 @@ export class StoneBasinGame extends Phaser.Scene {
         startRotation: -2.3,
         bounds: innerBasinArea
       },
-      orangeBoatOverhead.key
+      theDevilOverhead.key
     ).addToScene(this)
 
     const clickHandlerFactory = new ClickHandlerFactory(this)
