@@ -9,8 +9,8 @@ const lighthouseImage = new ImageDescriptor(
   'lighthouse',
   'assets/inside lighthouse.png'
 )
-const orangeBoatImage = new ImageDescriptor(
-  'orangeBoat',
+const theDevilImage = new ImageDescriptor(
+  'theDevil',
   'assets/the devil.png'
 )
 
@@ -23,7 +23,7 @@ export class Lighthouse extends Scene {
 
   preload() {
     this.load.image(lighthouseImage.key, lighthouseImage.location)
-    this.load.image(orangeBoatImage.key, orangeBoatImage.location)
+    this.load.image(theDevilImage.key, theDevilImage.location)
     this.load.image(theRamImage.key, theRamImage.location)
   }
 
@@ -33,8 +33,8 @@ export class Lighthouse extends Scene {
     const stoneBasinDropZone = this.add
       .zone(730, 630, 290, 270)
       .setDropZone(undefined, undefined)
-    new BoatOnShelf(500, 530, orangeBoatImage.key, () => {
-      BoatState.placeInBasin(ToyBoat.Orange)
+    new BoatOnShelf(500, 530, theDevilImage.key, () => {
+      BoatState.placeInBasin(ToyBoat.TheDevil)
     }).addToScene(this, stoneBasinDropZone)
    
     new BoatOnShelf(930, 130, theRamImage.key, () => {

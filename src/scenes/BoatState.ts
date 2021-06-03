@@ -1,8 +1,7 @@
 import { Debug } from '../util/Debug'
 
 export enum ToyBoat {
-  JollyRoger = 'jollyRoger',
-  Orange = 'orange',
+  TheDevil = 'devil',
   TheRam = 'ram'
 }
 
@@ -15,8 +14,7 @@ interface BoatStateComponents {
 
 export class BoatState {
   private static boatsInBasin: Record<ToyBoat, BoatStateComponents> = {
-    [ToyBoat.JollyRoger]: { isInBasin: false, callbacks: [] },
-    [ToyBoat.Orange]: { isInBasin: false, callbacks: [] },
+    [ToyBoat.TheDevil]: { isInBasin: false, callbacks: [] },
     [ToyBoat.TheRam]: { isInBasin: false, callbacks: [] },
   }
 

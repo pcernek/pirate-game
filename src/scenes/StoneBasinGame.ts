@@ -63,7 +63,7 @@ export class StoneBasinGame extends Phaser.Scene {
 
 
     new OverheadBoat(
-      ToyBoat.Orange,
+      ToyBoat.TheDevil,
       {
         startPosition: { x: 880, y: 140 },
         startRotation: -2.3,
