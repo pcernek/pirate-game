@@ -16,7 +16,7 @@ export class OverheadBoat {
   private tempMatrix: Phaser.GameObjects.Components.TransformMatrix
   private tempParentMatrix: Phaser.GameObjects.Components.TransformMatrix
 
-  private bowOffset: Point = { x: 0, y: -90 }
+  private bowOffset: Point
 
   private container: Phaser.GameObjects.Container
 
@@ -32,17 +32,21 @@ export class OverheadBoat {
   public addToScene(scene: Phaser.Scene) {
     const { x, y } = this.config.startPosition
     const boat = scene.add.sprite(0, 0, this.imageKey)
+    
+    this.bowOffset = { x: 0, y: -boat.height / 2 }
+    const bowHandleRadius = boat.height / 4
+
     const bow = scene.add.circle(
       this.bowOffset.x,
       this.bowOffset.y,
-      40,
+      bowHandleRadius,
       0x00ff00,
       0
     )
 
     const container = scene.add
       .container(x, y, [boat, bow])
-      .setSize(100, 200)
+      .setSize(boat.width, boat.height)
       .setRotation(this.config.startRotation)
       .setInteractive({ useHandCursor: true })
       .setVisible(BoatState.isInBasin(this.boat))
