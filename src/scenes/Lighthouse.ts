@@ -2,6 +2,7 @@ import { ImageDescriptor } from '../assets/ImageDescriptor'
 import { Canvas } from '../Canvas'
 import { ClickHandlerFactory } from '../mechanics/ClickHandlerFactory'
 import { BoatOnShelf } from './BoatOnShelf'
+import { BoatPositionState } from './BoatPositionState'
 import { BoatState, ToyBoat } from './BoatState'
 import { Scene } from './generic/Scene'
 
@@ -13,6 +14,14 @@ const theDevilImage = new ImageDescriptor(
   'theDevil',
   'assets/the devil.png'
 )
+const lighthouseBasin = new ImageDescriptor(
+  'smallLighthouse',
+  'assets/lighthouse.png'
+)
+  const light = new ImageDescriptor(
+    'light',
+    'assets/light.png'
+  )
 
 const theRamImage = new ImageDescriptor('theRam', 'assets/the-ram-200px.png')
 
@@ -25,6 +34,8 @@ export class Lighthouse extends Scene {
     this.load.image(lighthouseImage.key, lighthouseImage.location)
     this.load.image(theDevilImage.key, theDevilImage.location)
     this.load.image(theRamImage.key, theRamImage.location)
+    this.load.image(lighthouseBasin.key, lighthouseBasin.location)
+    this.load.image(light.key, light.location)
   }
 
   create() {
@@ -40,7 +51,21 @@ export class Lighthouse extends Scene {
     new BoatOnShelf(1250, 245, theRamImage.key, () => {
       BoatState.placeInBasin(ToyBoat.TheRam)
     }).addToScene(this, stoneBasinDropZone)
+    
+    this.add
+      .image(850, 455, lighthouseBasin.key)
+      .setScale(0.3)
+      .setRotation(-.1)
 
+    BoatPositionState.onAllBoatsInPosition( () => { 
+    this.add
+      .image(970, 335, light.key)
+      .setScale(0.9,1)
+      .setRotation(2.45)
+      .setAlpha(0.3)
+  })
+
+    
     const clickHandlerFactory = new ClickHandlerFactory(this)
 
     clickHandlerFactory.createClickBox({ x: 880, y: 510 }, 200, 100, () => {
