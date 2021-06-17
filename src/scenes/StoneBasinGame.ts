@@ -26,6 +26,11 @@ const lighthouseOverhead = new ImageDescriptor(
   'assets/stoneBasinGame/lighthouse-overhead.png'
 )
 
+const beamLight = new ImageDescriptor(
+  'beamlight',
+  'assets/light.png'
+)
+
 const OUTER_BASIN_AREA = new Phaser.Geom.Circle(800, 400, 450)
 const INNER_BASIN_AREA = new Phaser.Geom.Circle(800, 400, 400)
 
@@ -47,6 +52,7 @@ export class StoneBasinGame extends Phaser.Scene {
     this.load.image(theRamOverhead.key, theRamOverhead.location)
     this.load.image(theDevilOverhead.key, theDevilOverhead.location)
     this.load.image(lighthouseOverhead.key, lighthouseOverhead.location)
+    this.load.image(beamLight.key, beamLight.location)
   }
 
   public create() {
@@ -57,7 +63,11 @@ export class StoneBasinGame extends Phaser.Scene {
       Canvas.heightPx / 2,
       stoneBasinBackground.key
     )
-
+    this.add.image(
+      800, 
+      400, 
+      lighthouseOverhead.key)
+    
     BoatState.onMoveToBasin(ToyBoat.TheRam, () => 
       this.addTheRam()
     )
@@ -65,7 +75,7 @@ export class StoneBasinGame extends Phaser.Scene {
       this.addTheDevil()
     )
     BoatPositionState.onAllBoatsInPosition(() => 
-      this.addLighthouse()
+      this.addLight()
     )
 
     const clickHandlerFactory = new ClickHandlerFactory(this)
@@ -101,9 +111,11 @@ export class StoneBasinGame extends Phaser.Scene {
       theDevilOverhead.key
     ).addToScene(this)
   }
-
-  private addLighthouse() {
-    Debug.log('Adding lighthouse to stone basin scene')
-    this.add.image(800, 400, lighthouseOverhead.key)
-  }
+  
+  private addLight() {
+    this.add.image(1350,-20, beamLight.key)
+    .setScale(4)
+    .setRotation(2.45)
+    .setAlpha(0.3)
+      }
 }
