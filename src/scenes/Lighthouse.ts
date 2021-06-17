@@ -44,6 +44,10 @@ export class Lighthouse extends Scene {
     const stoneBasinDropZone = this.add
       .zone(880, 510, 200, 100)
       .setDropZone(undefined, undefined)
+    this.add
+      .image(850, 455, lighthouseBasin.key)
+      .setScale(0.3)
+      .setRotation(-.1)
     new BoatOnShelf(500, 530, theDevilImage.key, () => {
       BoatState.placeInBasin(ToyBoat.TheDevil)
     }).addToScene(this, stoneBasinDropZone)
@@ -51,18 +55,12 @@ export class Lighthouse extends Scene {
     new BoatOnShelf(1250, 245, theRamImage.key, () => {
       BoatState.placeInBasin(ToyBoat.TheRam)
     }).addToScene(this, stoneBasinDropZone)
-    
-    this.add
-      .image(850, 455, lighthouseBasin.key)
-      .setScale(0.3)
-      .setRotation(-.1)
-
     BoatPositionState.onAllBoatsInPosition( () => { 
     this.add
       .image(970, 335, light.key)
       .setScale(0.9,1)
       .setRotation(2.45)
-      .setAlpha(0.3)
+      .setAlpha(1)
   })
 
     

@@ -116,6 +116,6 @@ export class StoneBasinGame extends Phaser.Scene {
     this.add.image(1350,-20, beamLight.key)
     .setScale(4)
     .setRotation(2.45)
-    .setAlpha(0.3)
+    .setAlpha(1)
       }
 }

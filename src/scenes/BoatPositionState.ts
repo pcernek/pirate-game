@@ -16,6 +16,8 @@ export class BoatPositionState {
 
   private static callbacks: Callback[] = []
 
+  private static callbacksCompleted: boolean = false
+
   public static setTargetRotation(boat: ToyBoat, hasTargetRotation: boolean) {
     this.boatsInBasin[boat].hasTargetRotation = hasTargetRotation
     this.evaluateBoatPositionCallbacks()
@@ -28,20 +30,22 @@ export class BoatPositionState {
 
   public static onAllBoatsInPosition(callback: Callback) {
     if (this.everyBoatIsInPosition()) {
-      callback()
+      callback()    
     } else {
       this.callbacks.push(callback)
     }
   }
   
   private static evaluateBoatPositionCallbacks() {
-    if (this.everyBoatIsInPosition()) {
+    Debug.log('this.callbacksComplete =' + this.callbacksCompleted)
+    if (this.everyBoatIsInPosition() && !this.callbacksCompleted) {
       Debug.log('Every boat is in position!')
       Debug.log(`Executing ${this.callbacks.length} callbacks...`)
       for (const callback of this.callbacks) {
         Debug.log(`Callback: ${callback}`)
         callback()
       }
+      this.callbacksCompleted = true
     }
   }
 
