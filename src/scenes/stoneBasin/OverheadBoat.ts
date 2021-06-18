@@ -11,8 +11,8 @@ export interface OverheadBoatConfiguration {
   bounds: Phaser.Geom.Circle
 }
 
-const TARGET_DISTANCE_MARGIN = 40
-const TARGET_ROTATION_MARGIN = 0.25
+const TARGET_DISTANCE_MARGIN = 60
+const TARGET_ROTATION_MARGIN = 0.4
 
 export class OverheadBoat {
   private mode: 'rotate' | 'translate' = 'rotate'
@@ -95,7 +95,7 @@ export class OverheadBoat {
 
     if (Phaser.Math.Distance.BetweenPoints(container, this.config.targetPosition) < TARGET_DISTANCE_MARGIN) {
       BoatPositionState.setTargetLocation(this.boat, true)
-      boat.setTintFill(0x0000ff)
+      //boat.setTintFill(0x0000ff)##
     } else {
       BoatPositionState.setTargetLocation(this.boat, false)
       boat.clearTint()
@@ -117,10 +117,10 @@ export class OverheadBoat {
     
     if (Math.abs(deltaRotation - this.config.targetRotation) < TARGET_ROTATION_MARGIN) {
       BoatPositionState.setTargetRotation(this.boat, true)
-      circle.setStrokeStyle(4, 0x000000)
+      //circle.setStrokeStyle(4, 0x000000)
     } else {
       BoatPositionState.setTargetRotation(this.boat, false)
-      circle.setStrokeStyle()
+      //circle.setStrokeStyle()
     }
   }
 }

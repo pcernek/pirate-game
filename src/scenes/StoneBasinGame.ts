@@ -91,7 +91,7 @@ export class StoneBasinGame extends Phaser.Scene {
         startPosition: { x: 800, y: 650 },
         startRotation: 1.5,
         bounds: INNER_BASIN_AREA,
-        targetPosition: { x: 800, y: 650 },
+        targetPosition: { x: 1030, y: 430 },
         targetRotation: 1.5
       },
       theRamOverhead.key
@@ -105,7 +105,7 @@ export class StoneBasinGame extends Phaser.Scene {
         startPosition: { x: 880, y: 140 },
         startRotation: -2.3,
         bounds: INNER_BASIN_AREA,
-        targetPosition: { x: 880, y: 140 },
+        targetPosition: { x: 1030, y: 210 },
         targetRotation: -2.3
       },
       theDevilOverhead.key
