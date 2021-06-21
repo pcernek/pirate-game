@@ -12,7 +12,7 @@ export interface OverheadBoatConfiguration {
 }
 
 const TARGET_DISTANCE_MARGIN = 60
-const TARGET_ROTATION_MARGIN = 0.4
+const TARGET_ROTATION_MARGIN = 0.6
 
 export class OverheadBoat {
   private mode: 'rotate' | 'translate' = 'rotate'
@@ -95,7 +95,8 @@ export class OverheadBoat {
 
     if (Phaser.Math.Distance.BetweenPoints(container, this.config.targetPosition) < TARGET_DISTANCE_MARGIN) {
       BoatPositionState.setTargetLocation(this.boat, true)
-      //boat.setTintFill(0x0000ff)##
+      //boat.setTintFill(0x0000ff)
+
     } else {
       BoatPositionState.setTargetLocation(this.boat, false)
       boat.clearTint()
@@ -120,7 +121,7 @@ export class OverheadBoat {
       //circle.setStrokeStyle(4, 0x000000)
     } else {
       BoatPositionState.setTargetRotation(this.boat, false)
-      //circle.setStrokeStyle()
+      circle.setStrokeStyle()
     }
   }
 }

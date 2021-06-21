@@ -7,10 +7,10 @@ import { BoatState, ToyBoat } from './BoatState'
 import { BoatPositionState } from './BoatPositionState'
 import { OverheadBoat } from './stoneBasin/OverheadBoat'
 
-const stoneBasinBackground = new ImageDescriptor(
+/*const stoneBasinBackground = new ImageDescriptor(
   'stoneBasinBackground',
   'assets/stoneBasinGame/stone-basin-scene.png'
-)
+)*/
 
 const theRamOverhead = new ImageDescriptor(
   'theRamOverhead',
@@ -31,8 +31,17 @@ const beamLight = new ImageDescriptor(
   'assets/light.png'
 )
 
-const OUTER_BASIN_AREA = new Phaser.Geom.Circle(800, 400, 450)
-const INNER_BASIN_AREA = new Phaser.Geom.Circle(800, 400, 400)
+const floor = new ImageDescriptor(
+  'floor',
+  'assets/floor.png'
+)
+
+const basin = new ImageDescriptor(
+  'basin',
+  'assets/basintopview.png'
+)
+const OUTER_BASIN_AREA = new Phaser.Geom.Circle(900, 450, 450)
+const INNER_BASIN_AREA = new Phaser.Geom.Circle(900, 450, 400)
 
 export class StoneBasinGame extends Phaser.Scene {
   constructor() {
@@ -48,7 +57,9 @@ export class StoneBasinGame extends Phaser.Scene {
   }
 
   public preload() {
-    this.load.image(stoneBasinBackground.key, stoneBasinBackground.location)
+   // this.load.image(stoneBasinBackground.key, stoneBasinBackground.location)
+    this.load.image(floor.key, floor.location)
+    this.load.image(basin.key, basin.location)
     this.load.image(theRamOverhead.key, theRamOverhead.location)
     this.load.image(theDevilOverhead.key, theDevilOverhead.location)
     this.load.image(lighthouseOverhead.key, lighthouseOverhead.location)
@@ -61,11 +72,16 @@ export class StoneBasinGame extends Phaser.Scene {
     this.add.image(
       Canvas.widthPx / 2,
       Canvas.heightPx / 2,
-      stoneBasinBackground.key
+      floor.key
     )
     this.add.image(
-      800, 
-      400, 
+      Canvas.widthPx / 2,
+      Canvas.heightPx / 2,
+      basin.key
+    )
+    this.add.image(
+      780, 
+      420, 
       lighthouseOverhead.key)
     
     BoatState.onMoveToBasin(ToyBoat.TheRam, () => 
@@ -88,7 +104,7 @@ export class StoneBasinGame extends Phaser.Scene {
     new OverheadBoat(
       ToyBoat.TheRam,
       {
-        startPosition: { x: 800, y: 650 },
+        startPosition: { x: 870, y: 720 },
         startRotation: 1.5,
         bounds: INNER_BASIN_AREA,
         targetPosition: { x: 1030, y: 430 },
@@ -105,7 +121,7 @@ export class StoneBasinGame extends Phaser.Scene {
         startPosition: { x: 880, y: 140 },
         startRotation: -2.3,
         bounds: INNER_BASIN_AREA,
-        targetPosition: { x: 1030, y: 210 },
+        targetPosition: { x: 1030, y: 230 },
         targetRotation: -2.3
       },
       theDevilOverhead.key
