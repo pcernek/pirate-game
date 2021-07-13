@@ -27,20 +27,11 @@ const lighthouseOverhead = new ImageDescriptor(
   'assets/stoneBasinGame/lighthouse-overhead.png'
 )
 
-const beamLight = new ImageDescriptor(
-  'beamlight',
-  'assets/light.png'
-)
+const beamLight = new ImageDescriptor('beamlight', 'assets/light.png')
 
-const floor = new ImageDescriptor(
-  'floor',
-  'assets/floor.png'
-)
+const floor = new ImageDescriptor('floor', 'assets/floor.png')
 
-const basin = new ImageDescriptor(
-  'basin',
-  'assets/basintopview.png'
-)
+const basin = new ImageDescriptor('basin', 'assets/basintopview.png')
 const OUTER_BASIN_AREA = new Phaser.Geom.Circle(900, 450, 450)
 const INNER_BASIN_AREA = new Phaser.Geom.Circle(900, 450, 400)
 
@@ -57,7 +48,7 @@ export class StoneBasinGame extends Scene {
   }
 
   public preload() {
-   // this.load.image(stoneBasinBackground.key, stoneBasinBackground.location)
+    // this.load.image(stoneBasinBackground.key, stoneBasinBackground.location)
     this.load.image(floor.key, floor.location)
     this.load.image(basin.key, basin.location)
     this.load.image(theRamOverhead.key, theRamOverhead.location)
@@ -69,30 +60,13 @@ export class StoneBasinGame extends Scene {
   public create() {
     Debug.log(`Creating ${StoneBasinGame.name}`)
 
-    this.add.image(
-      Canvas.widthPx / 2,
-      Canvas.heightPx / 2,
-      floor.key
-    )
-    this.add.image(
-      Canvas.widthPx / 2,
-      Canvas.heightPx / 2,
-      basin.key
-    )
-    this.add.image(
-      780, 
-      420, 
-      lighthouseOverhead.key)
-    
-    BoatState.onMoveToBasin(ToyBoat.TheRam, () => 
-      this.addTheRam()
-    )
-    BoatState.onMoveToBasin(ToyBoat.TheDevil, () => 
-      this.addTheDevil()
-    )
-    BoatPositionState.onAllBoatsInPosition(() => 
-      this.addLight()
-    )
+    this.add.image(Canvas.widthPx / 2, Canvas.heightPx / 2, floor.key)
+    this.add.image(Canvas.widthPx / 2, Canvas.heightPx / 2, basin.key)
+    this.add.image(780, 420, lighthouseOverhead.key)
+
+    BoatState.onMoveToBasin(ToyBoat.TheRam, () => this.addTheRam())
+    BoatState.onMoveToBasin(ToyBoat.TheDevil, () => this.addTheDevil())
+    BoatPositionState.onAllBoatsInPosition(() => this.addLight())
 
     const clickHandlerFactory = new ClickHandlerFactory(this)
     clickHandlerFactory.createInvertedClickCircle(OUTER_BASIN_AREA, () =>
@@ -127,11 +101,12 @@ export class StoneBasinGame extends Scene {
       theDevilOverhead.key
     ).addToScene(this)
   }
-  
+
   private addLight() {
-    this.add.image(1350,-20, beamLight.key)
-    .setScale(4)
-    .setRotation(2.45)
-    .setAlpha(1)
-      }
+    this.add
+      .image(1350, -20, beamLight.key)
+      .setScale(4)
+      .setRotation(2.45)
+      .setAlpha(1)
+  }
 }

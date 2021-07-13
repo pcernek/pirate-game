@@ -15,7 +15,7 @@ interface BoatStateComponents {
 export class BoatState {
   private static boatsInBasin: Record<ToyBoat, BoatStateComponents> = {
     [ToyBoat.TheDevil]: { isInBasin: false, callbacks: [] },
-    [ToyBoat.TheRam]: { isInBasin: false, callbacks: [] },
+    [ToyBoat.TheRam]: { isInBasin: false, callbacks: [] }
   }
 
   public static placeInBasin(boat: ToyBoat) {

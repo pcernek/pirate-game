@@ -33,7 +33,7 @@ export class OverheadBoat {
   public addToScene(scene: Phaser.Scene) {
     const { x, y } = this.config.startPosition
     const boat = scene.add.sprite(0, 0, this.imageKey)
-    
+
     this.bowOffset = { x: 0, y: -boat.height / 2 }
     const bowHandleRadius = boat.height / 4
 
@@ -71,7 +71,10 @@ export class OverheadBoat {
     )
   }
 
-  private setDragMode(bow: Phaser.GameObjects.Arc, pointer: Phaser.Input.Pointer) {
+  private setDragMode(
+    bow: Phaser.GameObjects.Arc,
+    pointer: Phaser.Input.Pointer
+  ) {
     // TODO: There has got to be a better way!
     bow.getWorldTransformMatrix(this.tempMatrix, this.tempParentMatrix)
     var d = this.tempMatrix.decomposeMatrix() as any
@@ -87,36 +90,52 @@ export class OverheadBoat {
     }
   }
 
-  private translate(dragX: number, dragY: number, container: Phaser.GameObjects.Container, boat: Phaser.GameObjects.Sprite) {
+  private translate(
+    dragX: number,
+    dragY: number,
+    container: Phaser.GameObjects.Container,
+    boat: Phaser.GameObjects.Sprite
+  ) {
     if (this.config.bounds.contains(dragX, dragY)) {
       container.x = dragX
       container.y = dragY
     }
 
-    if (Phaser.Math.Distance.BetweenPoints(container, this.config.targetPosition) < TARGET_DISTANCE_MARGIN) {
+    if (
+      Phaser.Math.Distance.BetweenPoints(
+        container,
+        this.config.targetPosition
+      ) < TARGET_DISTANCE_MARGIN
+    ) {
       BoatPositionState.setTargetLocation(this.boat, true)
       //boat.setTintFill(0x0000ff)
-
     } else {
       BoatPositionState.setTargetLocation(this.boat, false)
       boat.clearTint()
     }
   }
 
-  private rotate(pointer: Phaser.Input.Pointer, container: Phaser.GameObjects.Container, circle: Phaser.GameObjects.Arc) {
+  private rotate(
+    pointer: Phaser.Input.Pointer,
+    container: Phaser.GameObjects.Container,
+    circle: Phaser.GameObjects.Arc
+  ) {
     const pointerPosition = { x: pointer.worldX, y: pointer.worldY }
     const origin = { x: container.x, y: container.y }
     const p0 = {
-      x: this.bowOffset.x + container.x,
-      y: this.bowOffset.y + container.y
-    },
+        x: this.bowOffset.x + container.x,
+        y: this.bowOffset.y + container.y
+      },
       p1 = pointerPosition
     var a0 = Phaser.Math.Angle.BetweenPoints(origin, p0),
       a1 = Phaser.Math.Angle.BetweenPoints(origin, p1)
     const deltaRotation = Phaser.Math.Angle.Wrap(a1 - a0)
     container.setRotation(deltaRotation)
-    
-    if (Math.abs(deltaRotation - this.config.targetRotation) < TARGET_ROTATION_MARGIN) {
+
+    if (
+      Math.abs(deltaRotation - this.config.targetRotation) <
+      TARGET_ROTATION_MARGIN
+    ) {
       BoatPositionState.setTargetRotation(this.boat, true)
       //circle.setStrokeStyle(4, 0x000000)
     } else {

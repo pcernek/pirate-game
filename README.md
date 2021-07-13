@@ -31,10 +31,10 @@ Loading images via JavaScript module `import` is also supported, although not re
 
 ## Available Commands
 
-| Command         | Description                                                                     |
-| --------------- | ------------------------------------------------------------------------------- |
-| `npm install`   | Install project dependencies after cloning repository or after new dependencies added.                                                   |
-| `npm run start:webpack`     | Build project and open web server running project                               |
+| Command                 | Description                                                                            |
+| ----------------------- | -------------------------------------------------------------------------------------- |
+| `npm install`           | Install project dependencies after cloning repository or after new dependencies added. |
+| `npm run start:webpack` | Build project and open web server running project                                      |
 
 ## Writing Code
 

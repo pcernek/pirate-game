@@ -30,12 +30,12 @@ export class BoatPositionState {
 
   public static onAllBoatsInPosition(callback: Callback) {
     if (this.everyBoatIsInPosition()) {
-      callback()    
+      callback()
     } else {
       this.callbacks.push(callback)
     }
   }
-  
+
   private static evaluateBoatPositionCallbacks() {
     Debug.log('this.callbacksComplete =' + this.callbacksCompleted)
     if (this.everyBoatIsInPosition() && !this.callbacksCompleted) {
@@ -50,15 +50,21 @@ export class BoatPositionState {
   }
 
   private static everyBoatIsInPosition() {
-    return this.everyBoatHasTargetRotation() && this.everyBoatIsAtTargetLocation()
+    return (
+      this.everyBoatHasTargetRotation() && this.everyBoatIsAtTargetLocation()
+    )
   }
 
   private static everyBoatHasTargetRotation() {
     Debug.log(`Boat state: ${JSON.stringify(this.boatsInBasin)}`)
-    return Object.values(this.boatsInBasin).every(({ hasTargetRotation }) => hasTargetRotation)
+    return Object.values(this.boatsInBasin).every(
+      ({ hasTargetRotation }) => hasTargetRotation
+    )
   }
 
   private static everyBoatIsAtTargetLocation() {
-    return Object.values(this.boatsInBasin).every(({ isAtTargetLocation }) => isAtTargetLocation)
+    return Object.values(this.boatsInBasin).every(
+      ({ isAtTargetLocation }) => isAtTargetLocation
+    )
   }
 }
