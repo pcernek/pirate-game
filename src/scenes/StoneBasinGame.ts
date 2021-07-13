@@ -6,6 +6,7 @@ import { ClickHandlerFactory } from '../mechanics/ClickHandlerFactory'
 import { BoatState, ToyBoat } from './BoatState'
 import { BoatPositionState } from './BoatPositionState'
 import { OverheadBoat } from './stoneBasin/OverheadBoat'
+import { Scene } from './generic/Scene'
 
 /*const stoneBasinBackground = new ImageDescriptor(
   'stoneBasinBackground',
@@ -43,10 +44,9 @@ const basin = new ImageDescriptor(
 const OUTER_BASIN_AREA = new Phaser.Geom.Circle(900, 450, 450)
 const INNER_BASIN_AREA = new Phaser.Geom.Circle(900, 450, 400)
 
-export class StoneBasinGame extends Phaser.Scene {
+export class StoneBasinGame extends Scene {
   constructor() {
-    super({
-      key: 'stoneBasinGame',
+    super('stoneBasinGame', {
       physics: {
         default: 'arcade',
         arcade: {

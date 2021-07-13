@@ -6,6 +6,7 @@
   "scripts": {
     "build": "webpack --config webpack/prod.js ",
     "start:webpack": "webpack-dev-server --config webpack/base.js --open",
+    "start:dev": "webpack-dev-server --config webpack/dev.js --open",
     "start": "node src/serve.js",
     "bundle": "webpack --config webpack/prod.js",
     "prestart": "npm run bundle",
